@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+require 'open-uri'
+require 'nokogiri'
+
+# Returns the paragraph from a wikipedia link, stripped of reference numbers.
+# Especially useful for text-to-speech (both native and foreign).
+
+if url = ARGV[0]
+    doc = Nokogiri::HTML(URI.open(url).read)
+    doc.css('.reference').map( &:remove )
+    # puts doc.css('h3').map( &:content )
+    puts doc.css('p').map( &:content ).join( "\n" )
+else
+   puts "This script needs a valid wikipedia url to read from, example: https://es.wikipedia.org/wiki/Ruby"
+   abort
+end

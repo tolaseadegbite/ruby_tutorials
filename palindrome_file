@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+lines = File.readlines("phrases.txt")
+
+singles = lines.select{ |line| line.split(" ").length == 3 }
+
+File.write('three_lines.txt', singles.join)
